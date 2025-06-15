@@ -1,40 +1,47 @@
 #include <iostream>
 using namespace std;
 
-struct item{
-    string name[2];
-    int price[2];
-    string make[2];
+struct Menu{
+    string menu;
+    int price;
 };
+struct Cafe{
+    string name;
+    int menuCount;
+    Menu* menuList;
+};
+void addCafe(Cafe &cafe) {
+    getline(cin,cafe.name);
 
-void input(item& st){
-    for(int i=0; i<2; i++){
-        cin >> st.name[i] >> st.price[i] >> st.make[i];
-    }
-}
-bool compare(item& s){
-    string s1= "";
-    string s2= "";
-    for(char ch : s.name[0]){
-        ch = toupper(ch);
-        s1 += ch;
-    }
-    for(char ch : s.name[1]){
-        ch = toupper(ch);
-        s2 += ch;
-    }
-    if(s1 ==s2 && s.price[0] == s.price[1]) return true;
+    cin >> cafe.menuCount;
+    cin.ignore();  
 
-    else return false;
+    cafe.menuList = new Menu[cafe.menuCount];
 }
+
+void addMenu(Menu &menu) {
+    cin >> menu.menu;
+    cin >> menu.price;
+}
+
+void displayMenus(Cafe &cafe) {
+   cout << "===== "<<cafe.name <<" ===== " << endl ;
+    for (int i = 0; i < cafe.menuCount; ++i) {
+         cout << cafe.menuList[i].menu << " " << cafe.menuList[i].price << endl;
+    }
+    cout << "=========== " << endl ;
+}  
 int main(){
-    item item;
-    input(item);
-    if(!compare(item)){
-        cout << item.name[0]<< " and " << item.name[1] <<" is not equal." ;
-    }
-    else{   
-        cout << item.name[0] << " is equal."<<endl;
+    Cafe myCafe;
+    addCafe(myCafe);
 
+    for (int i = 0; i < myCafe.menuCount; ++i) {
+        addMenu(myCafe.menuList[i]);
     }
+
+    displayMenus(myCafe);
+
+    delete[] myCafe.menuList;  // 메모리 해제
+    return 0;
+    return 0;
 }
