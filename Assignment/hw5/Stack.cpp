@@ -36,7 +36,7 @@ void Stack::clear(){
 void Stack::print(){
     if(isEmpty()) return;
 
-    for(int i=top; i>=0; i--){
+    for(int i=0; i <=top; i++){
         cout << list[i] <<" ";
     }
     cout<<" null " <<endl;
